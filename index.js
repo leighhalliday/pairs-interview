@@ -1,5 +1,5 @@
 const time = require("./time");
-const total = 10000;
+const total = 20000;
 const half = total / 2;
 const numbers = require("./numbers")(total);
 
@@ -37,6 +37,18 @@ time("Includes", () => {
 
   under.forEach((num) => {
     if (above.includes(total - num)) {
+      pairs.push([num, total - num]);
+    }
+  });
+});
+
+time("Map", () => {
+  const pairs = [];
+  const under = numbers.filter((num) => num < half);
+  const above = new Map(numbers.map((num) => [num, true]))
+
+  under.forEach((num) => {
+    if (above.has(total - num)) {
       pairs.push([num, total - num]);
     }
   });
